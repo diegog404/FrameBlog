@@ -9,17 +9,17 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long userId;
+    private Long userId;
 
-    public String name;
+    private String name;
 
-    public String email;
+    private String email;
 
-    public String password;
+    private String password;
 
-    public RoleEnum role;
+    private RoleEnum role;
 
-    public User() {
+    private User() {
     }
 
     public User(final Long userId, final String name, final String email, final String password, final RoleEnum role) {
