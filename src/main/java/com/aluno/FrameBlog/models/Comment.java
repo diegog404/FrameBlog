@@ -11,7 +11,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long commentid;
+    private Long commentId;
 
     private String content;
 
@@ -26,11 +26,11 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(final Long userId, final Long postId, final Date date, final String content, final Long commentid) {
+    public Comment(final Long userId, final Long postId, final Date date, final String content, final Long commentId) {
         this.userId = userId;
         this.postId = postId;
         this.date = date;
         this.content = content;
-        this.commentid = commentid;
+        this.commentId = commentId;
     }
 }
