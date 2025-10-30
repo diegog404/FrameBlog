@@ -18,19 +18,59 @@ public class Comment {
     private Date date;
 
     @ManyToOne
-    private Long postId;
+    private User user;
 
     @ManyToOne
-    private Long userId;
+    private Post post;
 
     public Comment() {
     }
 
-    public Comment(final Long userId, final Long postId, final Date date, final String content, final Long commentId) {
-        this.userId = userId;
-        this.postId = postId;
-        this.date = date;
-        this.content = content;
+    public Comment(Long commentId, String content, Date date, User user, Post post) {
         this.commentId = commentId;
+        this.content = content;
+        this.date = date;
+        this.user = user;
+        this.post = post;
+    }
+
+    public Long getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Long commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

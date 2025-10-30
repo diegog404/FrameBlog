@@ -1,10 +1,12 @@
 package com.aluno.FrameBlog.services.impl;
 
+import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.aluno.FrameBlog.models.User;
 import com.aluno.FrameBlog.repositories.UserRepository;
 import com.aluno.FrameBlog.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User save(final User user){
 
@@ -25,9 +30,12 @@ public class UserServiceImpl implements UserService {
 
             throw new RuntimeException("Existing user");
         }
-        User entity = new User(user.getUserId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
+
+        String passwordHash = passwordEncoder.encode(user.getPassword());
+
+        User entity = new User(user.getUserId(), user.getName(), user.getEmail(), passwordHash, user.getRole(), user.getUsername());
         User newUser = userRepository.save(entity);
-        return new User(newUser.getUserId(), newUser.getName(), newUser.getEmail(), newUser.getPassword(), newUser.getRole());
+        return new User(newUser.getUserId(), newUser.getName(), newUser.getEmail(), newUser.getPassword(), newUser.getRole(), user.getUsername());
     }
 
     @Override
@@ -52,8 +60,7 @@ public class UserServiceImpl implements UserService {
             String passwordHash = passwordEncoder.encode(user.getPassword());
             userUpdate.setName(user.getName());
             userUpdate.setEmail(user.getEmail());
-            userUpdate.setPassword(user.getPassword());
-            userUpdate.setRole(passwordHash);
+            userUpdate.setPassword(passwordHash);
             userUpdate.setUsername(user.getUsername());
             return userRepository.save(userUpdate);
         }

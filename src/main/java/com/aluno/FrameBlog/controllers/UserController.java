@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping(path = "/get")
     private @ResponseBody User get(@RequestParam final Long id){
 
-        return userService.update(id);
+        return userService.get(id);
     }
 
     @PostMapping(path = "/update")
