@@ -6,6 +6,7 @@ import com.aluno.FrameBlog.repositories.UserRepository;
 import com.aluno.FrameBlog.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +47,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(final Long id){
-
-        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        return userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User not found")
+        );
     }
 
     @Override
