@@ -1,0 +1,18 @@
+package com.aluno.FrameBlog.services.v2;
+
+import com.aluno.FrameBlog.models.v2.AddressV2;
+
+import java.util.List;
+
+public interface AddressServiceV2 {
+
+    List<AddressV2> getAll();
+
+    AddressV2 save(final AddressV2 addressV2);
+
+    void delete(final Long id);
+
+    AddressV2 update(final Long id, final AddressV2 addressV2);
+
+    AddressV2 get(final Long id);
+}
