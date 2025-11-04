@@ -3,6 +3,7 @@ package com.aluno.FrameBlog.controllers;
 
 import com.aluno.FrameBlog.models.User;
 import com.aluno.FrameBlog.services.UserService;
+import com.aluno.FrameBlog.services.v2.UserServiceV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,37 +17,44 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userServiceV2;
+    private UserService userService;
+
+    @Autowired
+    private UserServiceV2 userServiceV2;
 
     //mapeamento da operação save, envia e retorna os dados do usuário, usa o service para
     //realizar a operaçao, passando um user como parametro
     @PostMapping(path = "/save")
     private @ResponseBody User save(@RequestBody User user){
-        return userServiceV2.save(user);
+        return userService.save(user);
     }
 
     @GetMapping(path = "/getAll")
     private @ResponseBody List<User> getAll(){
 
-        return userServiceV2.getAll();
+        return userService.getAll();
     }
 
     @GetMapping(path = "/get")
-    private @ResponseBody User get(@RequestParam final Long id){
+    private @ResponseBody ResponseEntity<Object> get(@RequestParam final Long id, @RequestParam final String uriVersion,
+                                                     @RequestHeader(name = "Accept-Version") final String acceptVersion) {
 
-        return userServiceV2.get(id);
+        if (uriVersion.equals("v2") || acceptVersion.equals("v2")){
+            return ResponseEntity.ok(userServiceV2.get(id));
+        }
+        return ResponseEntity.ok(userService.get(id));
     }
 
     @PostMapping(path = "/update")
     private @ResponseBody User update(@RequestParam final Long id, @RequestBody User user){
 
-        return userServiceV2.update(id, user);
+        return userService.update(id, user);
     }
 
     @DeleteMapping(path = "/delete")
     private ResponseEntity<?> delete(@RequestParam final Long id){
 
-        userServiceV2.delete(id);
+        userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
