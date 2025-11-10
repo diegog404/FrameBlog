@@ -21,15 +21,15 @@ public class Post {
     private Date date;
 
     @ManyToOne
-    private Long userId;
+    private User userId;
 
-    @ManyToOne
+    @OneToMany
     private List<Tag> tagId;
 
     public Post() {
     }
 
-    public Post(final Long postId, final String title, final String content, final Date date, final Long userId, final List<Tag> tagId) {
+    public Post(final Long postId, final String title, final String content, final Date date, final User userId, final List<Tag> tagId) {
         this.postId = postId;
         this.title = title;
         this.content = content;
@@ -70,11 +70,11 @@ public class Post {
         this.date = date;
     }
 
-    public Long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
