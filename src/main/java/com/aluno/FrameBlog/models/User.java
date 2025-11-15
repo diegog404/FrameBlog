@@ -1,5 +1,6 @@
 package com.aluno.FrameBlog.models;
 
+import com.aluno.FrameBlog.deserializers.CustomAuthorityDeserializer;
 import com.aluno.FrameBlog.enums.RoleEnum;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
@@ -91,6 +92,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == RoleEnum.ADMIN) {
             return List.of(

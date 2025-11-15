@@ -5,6 +5,7 @@ import com.aluno.FrameBlog.models.User;
 import com.aluno.FrameBlog.services.UserService;
 import com.aluno.FrameBlog.services.v2.UserServiceV2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class UserController {
         return userService.save(user);
     }
 
+    @Cacheable
     @GetMapping(path = "/getAll")
     private @ResponseBody List<User> getAll(){
 
