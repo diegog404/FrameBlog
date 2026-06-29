@@ -23,18 +23,21 @@ public class User {
 	private String password;
 	
 	private RoleEnum role;
+	
+	private String username;
 
 	public User() {
 
 	}
 
-	public User(final Long userId, final String name, final String email, final String password, final RoleEnum role) {
+	public User(final Long userId, final String name, final String email, final String password, final RoleEnum role, final String username) {
 
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.role = role;
+		this.username = username;
 	}
 
 	public Long getUserId() {
@@ -76,6 +79,18 @@ public class User {
 	public void setRole(RoleEnum role) {
 		this.role = role;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
+	
+	
 	
 	
 	
