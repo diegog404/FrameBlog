@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.aluno.FrameBlog.models.User;
 import com.aluno.FrameBlog.repositories.UserRepository;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	 
 	@Override
 	public User save(final User user) {
@@ -26,6 +30,8 @@ public class UserServiceImpl implements UserService {
 			
 			throw new RuntimeException("Existing User");
 		}
+		String passwordHash = passwordEncoder.encode(user.getPassword());
+		
 		User entity = new User(user.getUserId(), user.getName(), 
 				user.getEmail(), user.getPassword(), user.getRole(), user.getUsername());
 		
@@ -55,6 +61,7 @@ public class UserServiceImpl implements UserService {
 		
 		if(Objects.nonNull(userUpdate)) {
 			
+			String passwordHash = passwordEncoder.encode(user.getPassword());
 			userUpdate.setName(user.getName());
 			userUpdate.setUsername(user.getUsername());
 			userUpdate.setEmail(user.getEmail());
