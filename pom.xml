@@ -68,6 +68,20 @@
 			<artifactId>java-jwt</artifactId>
 			<version>4.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb.enterprise</groupId>
+			<artifactId>flyway-mysql</artifactId>
+			<version>8.5.11</version>
+		</dependency>
 	</dependencies>
 
 	<build>
