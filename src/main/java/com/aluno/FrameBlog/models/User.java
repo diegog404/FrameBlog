@@ -7,7 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.aluno.FrameBlog.deserializers.CustomAuthorityDeserializer;
 import com.aluno.FrameBlog.enums.RoleEnum;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -95,8 +97,8 @@ public class User implements UserDetails{
 		this.username = username;
 	}
 	
-	
     @Override
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == RoleEnum.ADMIN) {
             return List.of(
@@ -128,9 +130,4 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-	
-	
-	
-	
-	
 }
